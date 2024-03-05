@@ -1,0 +1,32 @@
+-- Crearea tabelului Angajati și inserarea datelor de exemplu
+CREATE TABLE Angajati (
+    Nume NVARCHAR(MAX),
+    Prenume NVARCHAR(MAX),
+    Varsta INT,
+    Nr_Telefon NVARCHAR(20)
+);
+
+INSERT INTO Angajati (Nume, Prenume, Varsta, Nr_Telefon) VALUES 
+('Popescu', 'Ana', 30, '123456789'),
+('Ionescu', 'Andrei', 35, '123456789'),
+('Dragomir', 'Maria', 40, '123456789'),
+('Radulescu', 'Ion', 45, '987654321'),
+('Stanescu', 'Mihai', 50, '987654321'),
+('Marin', 'George', 55, '987654321');
+
+-- Interogarea pentru a face split pe cele patru coloane
+SELECT 
+    SUBSTRING(Nume, 1, CHARINDEX(',', Nume) - 1) AS Nume,
+    SUBSTRING(Prenume, 1, CHARINDEX(',', Prenume) - 1) AS Prenume,
+    Varsta,
+    Nr_Telefon
+FROM 
+    Angajati
+UNION ALL
+SELECT 
+    SUBSTRING(Nume, CHARINDEX(',', Nume) + 2, LEN(Nume)) AS Nume,
+    SUBSTRING(Prenume, CHARINDEX(',', Prenume) + 2, LEN(Prenume)) AS Prenume,
+    Varsta,
+    Nr_Telefon
+FROM 
+    Angajati;
